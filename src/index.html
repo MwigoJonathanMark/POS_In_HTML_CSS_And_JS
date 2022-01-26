@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <script type="text/javascript" src="static\js\jquery.min.js"></script>
+    <script type="text/javascript" src="static\js\bootstrap.min.js"></script>
+    <script type="text/javascript" src="static\js\db.js"></script>
+
+    <link rel="stylesheet" href="static\css\bootstrap.min.css">
+    <link rel="stylesheet" href="static\css\customux.css">
+    <style media="screen">
+      body {
+        width: auto;
+        margin-top: 3em;
+        margin-bottom: 5em
+      }
+      ::-webkit-scrollbar{
+        width: 20px;
+      }
+      ::-webkit-scrollbar-thumb{
+        background: gray;
+        border-radius: 40px;
+      }
+      ::-webkit-scrollbar-track{
+        box-shadow: inset 0 0 5px black;
+      }
+      ::-webkit-scrollbar-thumb:hover{
+        background: teal;
+      }
+    </style>
+
+    <title>My Point Of Sales</title>
+  </head>
+  <body>
+    <div class="container-md">
+      <div class="row">
+        <div class="card col-sm-7">
+          <h4 class="h4 card-title">P.O.S</h4>
+          <div class="card-body center">
+            <form class="form" action="index.html" method="post">
+              <div class="">
+                <div>
+                  <input class="form-control" type="hidden" name="edit_product_id" id="edit_product_id">
+                </div>
+                <label class="form-text" for="#name">Product Name</label>
+                <div>
+                  <input class="form-control" id="name" type="text">
+                </div>
+                <label class="form-text" for="#type">Product Type</label>
+                <div>
+                  <input class="form-control" id="type" type="text">
+                </div>
+                <label class="form-text" for="#uprice">Unity Price</label>
+                <div class="">
+                  <input class="form-control" id="uprice" type="text">
+                </div>
+                <label class="form-text" for="#pquantity">Product Quantity</label>
+                <div class="">
+                  <input class="form-control" id="pquantity" type="text">
+                </div>
+                <label class="form-text" for="#tprice">Total Price</label>
+                <div class="">
+                  <input class="form-control" id="tprice" type="text">
+                </div>
+                <hr>
+                <div class="row centered btn-group">
+                  <button class="btn shadow-sm btn-secondary btn-outline-warning" id="sell_btn" type="button" onclick="sellRecord()"><span></span>Sell</button>
+                  <button class="btn shadow-sm btn-secondary btn-outline-warning" id="save_btn" type="button" onclick="saveRecord()"><span></span>Save</button>
+                  <button class="btn shadow-sm btn-secondary btn-outline-warning" id="update_btn" type="button" style="display: none;" onclick="updateRecord()"><span></span>Update</button>
+                </div>
+              </div>
+            </form>
+            <hr>
+            <div class="">
+              <table class="table table-bordered table-striped table-hover centered" id="displaytable"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
