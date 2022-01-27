@@ -24,6 +24,7 @@
       }
       ::-webkit-scrollbar-track{
         box-shadow: inset 0 0 5px black;
+        border-radius: 40px;
       }
       ::-webkit-scrollbar-thumb:hover{
         background: teal;
@@ -57,7 +58,7 @@
                 </div>
                 <label class="form-text" for="#pquantity">Product Quantity</label>
                 <div class="">
-                  <input class="form-control" id="pquantity" type="text">
+                  <input class="form-control" id="pquantity" type="text" onkeyup="calcTotalPrice()">
                 </div>
                 <label class="form-text" for="#tprice">Total Price</label>
                 <div class="">
@@ -70,7 +71,7 @@
               </div>
             </form>
             <hr>
-            <div class="">
+            <div class="table-responsive">
               <table class="table table-bordered table-striped table-hover centered" id="displaytable"></table>
             </div>
           </div>

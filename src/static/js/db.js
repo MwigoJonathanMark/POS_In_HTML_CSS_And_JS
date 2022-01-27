@@ -5,7 +5,7 @@ showDetails();
 
 function createTable(){
   database.transaction(function (transact) {
-    transact.executeSql('CREATE TABLE IF NOT EXISTS items (product_id INTEGER PRIMARY KEY AUTOINCREMENT, product_name TEXT, product_type TEXT, unit_price INTEGER, product_quantity INTEGER, total_price INTEGER)', []);
+    transact.executeSql('CREATE TABLE IF NOT EXISTS items (product_id INTEGER PRIMARY KEY AUTOINCREMENT, product_name TEXT, product_type TEXT, unit_price TEXT, product_quantity TEXT, total_price TEXT)', []);
   });
 }
 
@@ -160,4 +160,17 @@ function dropTable() {
       transact.executeSql('DROP TABLE items', []);
     });
   }
+}
+
+function calcTotalPrice() {
+  var unitPrice = Number.parseInt($.trim($('#uprice').val()));
+  var productQnty = Number.parseInt($.trim($('#pquantity').val()));
+  // var unitPrice = $.trim($('uprice').val());
+  // var productQnty = $.trim($('pquantity').val());
+
+  var product = unitPrice * productQnty;
+  // console.log("Unit Price: "+uprice);
+  // console.log("Product Quantity: "+productQnty);
+  // console.log("Product: "+product);
+  $('#tprice').val(product);
 }
