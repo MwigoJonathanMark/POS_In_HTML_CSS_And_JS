@@ -5,11 +5,11 @@ showDetails();
 
 function createTable(){
   database.transaction(function (transact) {
-    transact.executeSql('CREATE TABLE IF NOT EXISTS items (product_id INTEGER PRIMARY KEY AUTOINCREMENT, product_name TEXT, product_type TEXT, unit_price TEXT, product_quantity TEXT, total_price TEXT)', []);
+    transact.executeSql('CREATE TABLE IF NOT EXISTS items (product_id INTEGER PRIMARY KEY AUTOINCREMENT, product_name TEXT, product_type TEXT, unit_price INTEGER, product_quantity INTEGER, total_price INTEGER)', []);
   });
 }
 
-function saveRecord() {
+function sellRecord() {
   var product_name = $.trim($('#name').val());
   var product_type = $.trim($('#type').val());
   var unit_price = $.trim($('#uprice').val());
@@ -138,48 +138,6 @@ function editRecord(product_id) {
   });
 }
 
-function sellRecord(product_id) {
-  var product_name = $.trim($('#name').val());
-  var product_type = $.trim($('#type').val());
-  var unit_price = $.trim($('#uprice').val());
-  var product_sell_quantity = $.trim($('#pquantity').val());
-  var total_price = $.trim($('#tprice').val());
-  var edit_product_id = $.trim($('#edit_product_id').val());
-  var sell_reduction;
-
-  if(product_name == ''){
-    alert("Please enter a product name."); $('#name').focus(); return false
-  }
-  if(product_type == ''){
-    alert("Please enter a product type."); $('#type').focus(); return false
-  }
-  if(unit_price == ''){
-    alert("Please enter a product unit price."); $('#uprice').focus(); return false
-  }
-  if(product_sell_quantity == ''){
-    alert("Please enter a product quantity."); $('#pquantity').focus(); return false
-  }
-  if(total_price == ''){
-    alert("Please enter a total price."); $('#tprice').focus(); return false
-  }
-
-  if(product_name != '' && product_type != '' && unit_price != '' && product_sell_quantity != '' && total_price != ''){
-    database.transaction(function (transact){
-      transact.executeSql('SELECT * WHERE product_id = "' + product_id + '"', [], function (transact, rs){
-        var record = rs.rows.item(0);
-        sell_reduction = record.product_quantity - product_sell_quantity;
-        alert(sell_reduction);
-      });
-    });
-
-    database.transaction(function (transact){
-      transact.executeSql('UPDATE product_quantity = ?, product_id = ? WHERE product_id = "' + product_id + '"', [sell_reduction, edit_product_id], function (transact, rs){
-        var record = rs.rows.item(0);
-      });
-    });
-  }
-}
-
 function deleteRecord(product_id) {
   var delete_confirm = confirm("Do you want to delete this record!");
 
@@ -187,48 +145,6 @@ function deleteRecord(product_id) {
     database.transaction(function (transact) {
       transact.executeSql('DELETE FROM items WHERE product_id = "' + product_id + '"');
     }); showDetails();
-  }
-}
-
-function updateRecord(){
-  var product_name = $.trim($('#name').val());
-  var product_type = $.trim($('#type').val());
-  var unit_price = $.trim($('#uprice').val());
-  var product_quantity = $.trim($('#pquantity').val());
-  var total_price = $.trim($('#tprice').val());
-  var edit_product_id = $.trim($('#edit_product_id').val());
-
-  if(product_name == ''){
-    alert("Please enter a product name."); $('#name').focus(); return false
-  }
-  if(product_type == ''){
-    alert("Please enter a product type."); $('#type').focus(); return false
-  }
-  if(unit_price == ''){
-    alert("Please enter a product unit price."); $('#uprice').focus(); return false
-  }
-  if(product_quantity == ''){
-    alert("Please enter a product quantity."); $('#pquantity').focus(); return false
-  }
-  if(total_price == ''){
-    alert("Please enter a total price."); $('#tprice').focus(); return false
-  }
-
-  if(product_name != '' && product_type != '' && unit_price != '' && product_quantity != '' && total_price != ''){
-    database.transaction(function (transact){
-      transact.executeSql('UPDATE items SET product_name = ?, product_type = ?, unit_price = ?, product_quantity = ?, total_price = ? WHERE product_id = ?', [product_name, product_type, unit_price, product_quantity, total_price, edit_product_id], showDetails(), onError);
-
-      $('#edit_product_id').val(null);
-      $('#name').val(null);
-      $('#type').val(null);
-      $('#uprice').val(null);
-      $('#pquantity').val(null);
-      $('#tprice').val(null);
-
-      $('#sell_btn').show();
-      $('#save_btn').show();
-      $('#update_btn').hide();
-    });
   }
 }
 
